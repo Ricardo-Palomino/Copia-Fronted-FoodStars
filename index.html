@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Foodstars - Descubre, califica y comparte los mejores restaurantes">
+    <meta name="keywords" content="restaurantes, comida, reseñas, calificaciones">
+    <title>FoodStars - Descubre los Mejores Restaurantes</title>
+    <link rel="icon" type="image/png" href="./icon/foodstars.png">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body> <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-sphere sphere-1"></div>
+        <div class="gradient-sphere sphere-2"></div>
+        <div class="gradient-sphere sphere-3"></div>
+        
+    </div> <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo" onclick="window.location.href='index.html'">
+                    <div class="logo-icon"> <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="18" fill="url(#logoGradient)" />
+                            <path d="M20 8L23 15H28L24 19L26 26L20 22L14 26L16 19L12 15H17L20 8Z" fill="white" />
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#FF6B35" />
+                                    <stop offset="100%" stop-color="#F7931E" />
+                                </linearGradient>
+                            </defs>
+                        </svg> </div> <span class="logo-text">FoodStars</span>
+                </div>
+                <div class="menu-toggle" id="menuToggle"> <span></span> <span></span> <span></span> </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link active">Inicio</a></li>
+                    <li><a href="./html/restaurants.html" class="nav-link">Restaurantes</a></li>
+                    <li><a href="#categories" class="nav-link">Categorías</a></li>
+                    <li><a href="#about" class="nav-link">Nosotros</a></li>
+                    <li class="auth-links"> <a href="./html/auth.html" class="btn-outline" id="navAuthLink"> <span>Iniciar
+                                Sesión</span> </a> </li>
+                    <li class="user-menu" id="userMenu" style="display: none;">
+                        <div class="user-avatar"> <span id="userInitials">U</span> </div>
+                        <div class="dropdown-menu"> <a href="#profile"> <svg width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+                                </svg> Mi Perfil </a> <a href="./html/admin.html" id="adminLink" style="display: none;"> <svg
+                                    width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
+                                </svg> Panel Admin </a> <a href="#" onclick="logout()" class="danger"> <svg width="20"
+                                    height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-2 0V4H5v12h10v-2a1 1 0 112 0v3a1 1 0 01-1 1H4a1 1 0 01-1-1V3z" />
+                                    <path
+                                        d="M11 10a1 1 0 011-1h5.586l-1.293-1.293a1 1 0 011.414-1.414l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L17.586 11H12a1 1 0 01-1-1z" />
+                                </svg> Cerrar Sesión </a> </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+    </header> <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge"> <span class="badge-icon">✨</span> <span>Bienvenido a la comunidad
+                        gastronómica</span> </div>
+                <h1 class="hero-title"> Descubre Experiencias <span class="gradient-text">Gastronómicas Únicas</span>
+                </h1>
+                <p class="hero-subtitle"> Explora miles de restaurantes, lee reseñas auténticas y comparte tus propias
+                    experiencias culinarias con una comunidad apasionada por la buena comida. </p>
+                <div class="hero-search">
+                    <div class="search-container"> <svg class="search-icon" width="24" height="24" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg> <input type="text" id="searchInput"
+                            placeholder="Busca restaurantes, platos o categorías..." class="search-input"> <button
+                            class="search-btn" onclick="searchRestaurants()"> <span>Buscar</span> <svg width="20"
+                                height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg> </button> </div>
+                    <div class="search-suggestions"> <span class="suggestion-label">Popular:</span> <button
+                            class="suggestion-tag" onclick="searchTag('Sushi')">Sushi</button> <button
+                            class="suggestion-tag" onclick="searchTag('Pizza')">Pizza</button> <button
+                            class="suggestion-tag" onclick="searchTag('Vegetariano')">Vegetariano</button> <button
+                            class="suggestion-tag" onclick="searchTag('Gourmet')">Gourmet</button> </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="statsRestaurants">1,500+</div>
+                        <div class="stat-label">Restaurantes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="statsReviews">25,000+</div>
+                        <div class="stat-label">Reseñas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="statsUsers">10,000+</div>
+                        <div class="stat-label">Usuarios</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card card-1">
+                    <div class="card-image">🍕</div>
+                    <div class="card-content">
+                        <div class="card-title">Pizzería Napolitana</div>
+                        <div class="card-rating">⭐ 4.8</div>
+                    </div>
+                </div>
+                <div class="floating-card card-2">
+                    <div class="card-image">🍣</div>
+                    <div class="card-content">
+                        <div class="card-title">Sushi Master</div>
+                        <div class="card-rating">⭐ 4.9</div>
+                    </div>
+                </div>
+                <div class="floating-card card-3">
+                    <div class="card-image">🥗</div>
+                    <div class="card-content">
+                        <div class="card-title">Green Garden</div>
+                        <div class="card-rating">⭐ 4.7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div class="arrow"> <span></span> <span></span> </div>
+        </div>
+
+    </section> <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Explora</div>
+                <h2 class="section-title">Categorías Populares</h2>
+                <p class="section-description"> Encuentra exactamente lo que estás buscando navegando por nuestras
+                    categorías cuidadosamente seleccionadas </p>
+            </div>
+            <div class="category-grid" id="categoryGrid">
+                <div class="loading-state">
+                    <div class="loader"></div>
+                    <p>Cargando categorías...</p>
+                </div>
+            </div>
+        </div>
+        
+    </section> <!-- Featured Restaurants -->
+    <section class="featured">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Lo Mejor</div>
+                <h2 class="section-title">Restaurantes Destacados</h2>
+                <p class="section-description"> Descubre los restaurantes mejor calificados por nuestra comunidad </p>
+            </div>
+            <div class="restaurant-grid" id="restaurantGrid">
+                <div class="loading-state">
+                    <div class="loader"></div>
+                    <p>Cargando restaurantes...</p>
+                </div>
+            </div>
+            <div class="section-cta"> <a href="./html/restaurants.html" class="btn-primary btn-large"> <span>Ver Todos los
+                        Restaurantes</span> <svg width="20" height="20" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg> </a> </div>
+        </div>
+        
+    </section> <!-- Features Section -->
+    <section class="features" id="about">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">¿Por qué FoodStars?</div>
+                <h2 class="section-title">La Mejor Plataforma Gastronómica</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"> <svg width="32" height="32" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg> </div>
+                    <h3>Reseñas Auténticas</h3>
+                    <p>Lee opiniones genuinas de usuarios reales sobre sus experiencias gastronómicas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"> <svg width="32" height="32" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg> </div>
+                    <h3>Rankings Precisos</h3>
+                    <p>Sistema de calificación inteligente que considera múltiples factores y opiniones.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"> <svg width="32" height="32" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg> </div>
+                    <h3>Búsqueda Avanzada</h3>
+                    <p>Encuentra exactamente lo que buscas con filtros inteligentes y búsqueda precisa.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"> <svg width="32" height="32" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg> </div>
+                    <h3>Comunidad Activa</h3>
+                    <p>Únete a miles de foodies que comparten su pasión por la buena comida.</p>
+                </div>
+            </div>
+        </div>
+
+    </section> <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Listo para Descubrir tu Próximo Restaurante Favorito?</h2>
+                <p>Únete a nuestra comunidad y comienza a explorar el mundo gastronómico</p>
+                <div class="cta-buttons"> <a href="./html/auth.html" class="btn-primary btn-large" id="ctaAuthBtn">
+                        <span>Comenzar Ahora</span> <svg width="20" height="20" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg> </a> <a href="./html/restaurants.html" class="btn-outline btn-large"> <span>Explorar
+                            Restaurantes</span> </a> </div>
+            </div>
+        </div>
+
+    </section> <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo"> <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="18" fill="url(#footerGradient)" />
+                            <path d="M20 8L23 15H28L24 19L26 26L20 22L14 26L16 19L12 15H17L20 8Z" fill="white" />
+                            <defs>
+                                <linearGradient id="footerGradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#FF6B35" />
+                                    <stop offset="100%" stop-color="#F7931E" />
+                                </linearGradient>
+                            </defs>
+                        </svg> <span>FoodStars</span> </div>
+                    <p class="footer-description"> La plataforma líder para descubrir, calificar y compartir
+                        experiencias gastronómicas excepcionales. </p>
+                    <div class="social-links"> <a href="#" aria-label="Facebook"> <svg width="24" height="24"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg> </a> <a href="#" aria-label="Twitter"> <svg width="24" height="24"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                            </svg> </a> <a href="#" aria-label="Instagram"> <svg width="24" height="24"
+                                fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg> </a> </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="./html/restaurants.html">Restaurantes</a></li>
+                        <li><a href="#categories">Categorías</a></li>
+                        <li><a href="./html/auth.html">Registro</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categorías</h4>
+                    <ul id="footerCategories">
+                        <li><a href="./html/restaurants.html?category=Comida%20rápida">Comida Rápida</a></li>
+                        <li><a href="./html/restaurants.html?category=Gourmet">Gourmet</a></li>
+                        <li><a href="./html/restaurants.html?category=Vegetariano">Vegetariano</a></li>
+                        <li><a href="./html/restaurants.html?category=Sushi">Sushi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul class="contact-list">
+                        <li> <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg> <a href="mailto:info@foodierank.com">info@foodstars.com</a> </li>
+                        <li> <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg> <a href="tel:+573001234567">+57 300 123 4567</a> </li>
+                        <li> <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg> <span>Floridablanca, Santander, CO</span> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FoodStars. Todos los derechos reservados.</p>
+                <div class="footer-links"> <a href="#">Política de Privacidad</a> <a href="#">Términos de Servicio</a>
+                    <a href="#">Cookies</a> </div>
+            </div>
+        </div>
+
+    </footer> <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon"></div>
+        <div class="toast-content">
+            <div class="toast-title"></div>
+            <div class="toast-message"></div>
+        </div> <button class="toast-close" onclick="hideToast()">×</button>
+    </div>
+    <script src="./js/config.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Panel de Administración - FoodStars">
+    <title>Panel Admin - Foodstars</title>
+    <link rel="icon" type="image/png" href="../icon/foodstars.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-sphere sphere-1"></div>
+        <div class="gradient-sphere sphere-2"></div>
+        <div class="gradient-sphere sphere-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo" onclick="window.location.href='../index.html'">
+                    <div class="logo-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="18" fill="url(#logoGradient)"/>
+                            <path d="M20 8L23 15H28L24 19L26 26L20 22L14 26L16 19L12 15H17L20 8Z" fill="white"/>
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" stop-color="#FF6B35"/>
+                                    <stop offset="100%" stop-color="#F7931E"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <span class="logo-text">FoodStars</span>
+                </div>
+                
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="../index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="../html/restaurants.html" class="nav-link">Restaurantes</a></li>
+                    <li><a href="../html/admin.html" class="nav-link active">Admin</a></li>
+                    <li class="user-menu" id="userMenu">
+                        <div class="user-avatar">
+                            <span id="userInitials">A</span>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="#profile">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+                                </svg>
+                                Mi Perfil
+                            </a>
+                            <a href="../html/admin.html" id="adminLink" style="display: none;">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"/>
+                                </svg>
+                                Panel Admin
+                            </a>
+                            <a href="#" onclick="logout()" class="danger">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-2 0V4H5v12h10v-2a1 1 0 112 0v3a1 1 0 01-1 1H4a1 1 0 01-1-1V3z"/>
+                                    <path d="M11 10a1 1 0 011-1h5.586l-1.293-1.293a1 1 0 011.414-1.414l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L17.586 11H12a1 1 0 01-1-1z"/>
+                                </svg>
+                                Cerrar Sesión
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Admin Container -->
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>Panel Admin</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="sidebar-link active" data-section="dashboard">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#restaurants" class="sidebar-link" data-section="restaurants">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    Restaurantes
+                </a>
+                <a href="#dishes" class="sidebar-link" data-section="dishes">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                    </svg>
+                    Platos
+                </a>
+                <a href="#categories" class="sidebar-link" data-section="categories">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                    </svg>
+                    Categorías
+                </a>
+                <a href="#reviews" class="sidebar-link" data-section="reviews">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                    </svg>
+                    Reseñas
+                </a>
+                <a href="#users" class="sidebar-link" data-section="users">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    Usuarios
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section class="admin-section active" id="dashboard">
+                <div class="section-header">
+                    <h1>Dashboard</h1>
+                    <p>Resumen general del sistema</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #FF6B35, #F7931E);">
+                            <svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statRestaurants">0</div>
+                            <div class="stat-label">Restaurantes</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #004E89, #1A6FAD);">
+                            <svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statReviews">0</div>
+                            <div class="stat-label">Reseñas</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #28A745, #20C997);">
+                            <svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statUsers">0</div>
+                            <div class="stat-label">Usuarios</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #FFC107, #FF9800);">
+                            <svg width="32" height="32" fill="none" stroke="white" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="statCategories">0</div>
+                            <div class="stat-label">Categorías</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="admin-card">
+                    <h2>Actividad Reciente</h2>
+                    <div class="activity-list" id="activityList">
+                        <div class="loading-state">
+                            <div class="loader"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Restaurants Section -->
+            <section class="admin-section" id="restaurants">
+                <div class="section-header">
+                    <div>
+                        <h1>Gestión de Restaurantes</h1>
+                        <p>Administra todos los restaurantes</p>
+                    </div>
+                    <button class="btn-primary" onclick="showCreateRestaurantModal()">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Nuevo Restaurante
+                    </button>
+                </div>
+
+                <div class="admin-card">
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Categoría</th>
+                                    <th>Ubicación</th>
+                                    <th>Rating</th>
+                                    <th>Reseñas</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="restaurantsTableBody">
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="loading-state">
+                                            <div class="loader"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dishes Section -->
+            <section class="admin-section" id="dishes">
+                <div class="section-header">
+                    <div>
+                        <h1>Gestión de Platos</h1>
+                        <p>Administra los platos de los restaurantes</p>
+                    </div>
+                    <button class="btn-primary" onclick="showCreateDishModal()">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Nuevo Plato
+                    </button>
+                </div>
+
+                <div class="admin-card">
+                    <div class="filter-bar">
+                        <div class="form-group" style="margin: 0; flex: 1; max-width: 300px;">
+                            <label for="dishRestaurantFilter" style="margin-bottom: 0.5rem;">Filtrar por Restaurante:</label>
+                            <select id="dishRestaurantFilter" onchange="filterDishesByRestaurant()">
+                                <option value="">Todos los restaurantes</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="dishes-admin-grid" id="dishesAdminGrid">
+                        <div class="loading-state">
+                            <div class="loader"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="admin-section" id="categories">
+                <div class="section-header">
+                    <div>
+                        <h1>Gestión de Categorías</h1>
+                        <p>Administra las categorías de restaurantes</p>
+                    </div>
+                    <button class="btn-primary" onclick="showCreateCategoryModal()">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Nueva Categoría
+                    </button>
+                </div>
+
+                <div class="categories-grid" id="categoriesGrid">
+                    <div class="loading-state">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews Section -->
+            <section class="admin-section" id="reviews">
+                <div class="section-header">
+                    <h1>Gestión de Reseñas</h1>
+                    <p>Modera las reseñas de usuarios</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="reviews-list" id="adminReviewsList">
+                        <div class="loading-state">
+                            <div class="loader"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section class="admin-section" id="users">
+                <div class="section-header">
+                    <h1>Gestión de Usuarios</h1>
+                    <p>Administra usuarios del sistema</p>
+                </div>
+
+                <div class="admin-card">
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Email</th>
+                                    <th>Rol</th>
+                                    <th>Reseñas</th>
+                                    <th>Registro</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td colspan="6">
+                                        <div class="loading-state">
+                                            <div class="loader"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Create/Edit Restaurant Modal -->
+    <div class="modal" id="restaurantModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <div class="modal-icon">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 id="restaurantModalTitle">Nuevo Restaurante</h2>
+                        <p class="modal-subtitle">Complete la información del restaurante</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeRestaurantModal()">×</button>
+            </div>
+            
+            <form id="restaurantForm">
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <h3>Información Básica</h3>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="restaurantName">
+                                <span class="label-text">Nombre del Restaurante</span>
+                                <span class="label-required">*</span>
+                            </label>
+                            <div class="input-with-icon">
+                                <svg class="input-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                                <input type="text" id="restaurantName" name="nombre" placeholder="Ej: La Trattoria Italiana" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="restaurantCategory">
+                                <span class="label-text">Categoría</span>
+                                <span class="label-required">*</span>
+                            </label>
+                            <div class="input-with-icon">
+                                <svg class="input-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                                </svg>
+                                <select id="restaurantCategory" name="categoria" required>
+                                    <option value="">Seleccionar categoría...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                        </svg>
+                        <h3>Descripción</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="restaurantDescription">
+                            <span class="label-text">Descripción del Restaurante</span>
+                            <span class="label-optional">(Opcional)</span>
+                        </label>
+                        <textarea 
+                            id="restaurantDescription" 
+                            name="descripcion" 
+                            rows="4"
+                            placeholder="Describe el restaurante, su ambiente, especialidades, etc..."
+                        ></textarea>
+                        <div class="char-count-footer">
+                            <span class="char-count" id="descCharCount">0</span>
+                            <span class="char-limit">/500 caracteres</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <h3>Imagen del Restaurante</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="restaurantImage">
+                            <span class="label-text">Imagen</span>
+                            <span class="label-optional">(Opcional)</span>
+                        </label>
+                        <div class="image-upload-container">
+                            <input 
+                                type="file" 
+                                id="restaurantImage" 
+                                name="imagen" 
+                                accept="image/*"
+                                style="display: none;"
+                                onchange="handleImageUpload(event, 'restaurantImagePreview', 'restaurantImage')"
+                            >
+                            <div class="image-preview-container" id="restaurantImagePreviewContainer">
+                                <div class="image-preview-placeholder" id="restaurantImagePreview" onclick="document.getElementById('restaurantImage').click()">
+                                    <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                    <p>Haz clic para subir una imagen</p>
+                                    <p class="image-hint">Formatos: JPG, PNG, WEBP (máx. 2MB)</p>
+                                </div>
+                                <button type="button" class="image-remove-btn" id="restaurantImageRemove" onclick="removeImage('restaurantImage', 'restaurantImagePreview')" style="display: none;">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <button type="button" class="btn-outline btn-block" onclick="document.getElementById('restaurantImage').click()" style="margin-top: 1rem;">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                Seleccionar Imagen
+                            </button>
+                        </div>
+                        <input type="hidden" id="restaurantImageBase64" name="imagenBase64">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <h3>Ubicación</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="restaurantLocation">
+                            <span class="label-text">Dirección o Ubicación</span>
+                            <span class="label-optional">(Opcional)</span>
+                        </label>
+                        <div class="input-with-icon">
+                            <svg class="input-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <input type="text" id="restaurantLocation" name="ubicacion" placeholder="Ej: Calle 123 #45-67, Centro, Bucaramanga">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <div class="form-footer-note">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Los campos marcados con <strong>*</strong> son obligatorios</span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" onclick="closeRestaurantModal()">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Guardar Restaurante
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create/Edit Category Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <div class="modal-icon">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 id="categoryModalTitle">Nueva Categoría</h2>
+                        <p class="modal-subtitle">Define una nueva categoría de restaurantes</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeCategoryModal()">×</button>
+            </div>
+            
+            <form id="categoryForm">
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="categoryName">
+                            <span class="label-text">Nombre de la Categoría</span>
+                            <span class="label-required">*</span>
+                        </label>
+                        <div class="input-with-icon">
+                            <svg class="input-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                            </svg>
+                            <input type="text" id="categoryName" name="nombre" placeholder="Ej: Comida Italiana" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categoryDescription">
+                            <span class="label-text">Descripción</span>
+                            <span class="label-optional">(Opcional)</span>
+                        </label>
+                        <textarea 
+                            id="categoryDescription" 
+                            name="descripcion" 
+                            rows="3"
+                            placeholder="Describe el tipo de comida o características de esta categoría..."
+                            maxlength="200"
+                        ></textarea>
+                        <div class="char-count-footer">
+                            <span class="char-count" id="catDescCharCount">0</span>
+                            <span class="char-limit">/200 caracteres</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <div class="form-footer-note">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Los campos marcados con <strong>*</strong> son obligatorios</span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" onclick="closeCategoryModal()">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Guardar Categoría
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteConfirmModal">
+        <div class="modal-content modal-small">
+            <div class="modal-header modal-header-danger">
+                <div class="modal-title-section">
+                    <div class="modal-icon modal-icon-danger">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2>Confirmar Eliminación</h2>
+                        <p class="modal-subtitle">Esta acción no se puede deshacer</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeDeleteModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="delete-warning">
+                    <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    <p id="deleteMessage">¿Estás seguro de que deseas eliminar este elemento?</p>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn-outline" onclick="closeDeleteModal()">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                    Cancelar
+                </button>
+                <button class="btn-danger" id="confirmDeleteBtn">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    Sí, Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create/Edit Dish Modal -->
+    <div class="modal" id="dishModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <div class="modal-icon">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 id="dishModalTitle">Nuevo Plato</h2>
+                        <p class="modal-subtitle">Agrega un plato al menú del restaurante</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeDishModal()">×</button>
+            </div>
+            
+            <form id="dishForm">
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <h3>Información Básica</h3>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dishName">
+                                <span class="label-text">Nombre del Plato</span>
+                                <span class="label-required">*</span>
+                            </label>
+                            <div class="input-with-icon">
+                                <svg class="input-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                </svg>
+                                <input type="text" id="dishName" name="nombre" placeholder="Ej: Pizza Margherita" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dishRestaurant">
+                                <span class="label-text">Restaurante</span>
+                                <span class="label-required">*</span>
+                            </label>
+                            <div class="input-with-icon">
+                                <svg class="input-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                </svg>
+                                <select id="dishRestaurant" name="restaurante" required>
+                                    <option value="">Seleccionar restaurante...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                        </svg>
+                        <h3>Descripción y Precio</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dishDescription">
+                            <span class="label-text">Descripción del Plato</span>
+                            <span class="label-optional">(Opcional)</span>
+                        </label>
+                        <textarea 
+                            id="dishDescription" 
+                            name="descripcion" 
+                            rows="4"
+                            placeholder="Describe los ingredientes, preparación o características especiales..."
+                            maxlength="300"
+                        ></textarea>
+                        <div class="char-count-footer">
+                            <span class="char-count" id="dishDescCharCount">0</span>
+                            <span class="char-limit">/300 caracteres</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dishPrice">
+                            <span class="label-text">Precio</span>
+                            <span class="label-optional">(Opcional)</span>
+                        </label>
+                        <div class="input-with-icon">
+                            <svg class="input-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <input type="number" id="dishPrice" name="precio" placeholder="0.00" step="0.01" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-section-header">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <h3>Imagen del Plato</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dishImage">
+                            <span class="label-text">Imagen</span>
+                            <span class="label-optional">(Opcional)</span>
+                        </label>
+                        <div class="image-upload-container">
+                            <input 
+                                type="file" 
+                                id="dishImage" 
+                                name="imagen" 
+                                accept="image/*"
+                                style="display: none;"
+                                onchange="handleImageUpload(event, 'dishImagePreview', 'dishImage')"
+                            >
+                            <div class="image-preview-container" id="dishImagePreviewContainer">
+                                <div class="image-preview-placeholder" id="dishImagePreview" onclick="document.getElementById('dishImage').click()">
+                                    <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                    <p>Haz clic para subir una imagen</p>
+                                    <p class="image-hint">Formatos: JPG, PNG, WEBP (máx. 2MB)</p>
+                                </div>
+                                <button type="button" class="image-remove-btn" id="dishImageRemove" onclick="removeImage('dishImage', 'dishImagePreview')" style="display: none;">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <button type="button" class="btn-outline btn-block" onclick="document.getElementById('dishImage').click()" style="margin-top: 1rem;">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                Seleccionar Imagen
+                            </button>
+                        </div>
+                        <input type="hidden" id="dishImageBase64" name="imagenBase64">
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <div class="form-footer-note">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Los campos marcados con <strong>*</strong> son obligatorios</span>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-outline" onclick="closeDishModal()">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-primary">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Guardar Plato
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon"></div>
+        <div class="toast-content">
+            <div class="toast-title"></div>
+            <div class="toast-message"></div>
+        </div>
+        <button class="toast-close" onclick="hideToast()">×</button>
+    </div>
+    <script src="../js/config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
