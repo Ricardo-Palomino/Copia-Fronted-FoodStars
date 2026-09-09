@@ -7,7 +7,7 @@
 const CONFIG = {
     // Configuración de la API - Define la URL base y timeout para las peticiones
     // URL base donde se encuentra el servidor backend
-    API_URL: 'http://localhost:3000/api/v1',
+    API_URL: 'https://copia-backend-foodstars.onrender.com/api/v1',
     // Tiempo máximo de espera para las peticiones API en milisegundos (10 segundos)
     API_TIMEOUT: 10000, // 10 seconds
     
